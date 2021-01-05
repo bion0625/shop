@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="f">
+
+	<!-- Q&A 전체 리스트 -->
+	<select id="free_list" resultType="free">
+		select * from ( select rank()
+		over( order by ref desc, step asc ) no, b.*
+		from( select * from free ) b
+		)
+		where no between 1 and 10
+	</select>
+
+	<!-- Q&A 페이지별 리스트 -->
+	<select id="free_list_condition" resultType="free" parameterType="java.util.Map">
+		select * from ( select rank()
+		over( order by ref desc, step asc ) no, b.*
+		from( select * from free ) b
+		)
+		where no between #{start} and #{end}
+	</select>
+	
+	<!-- Q&A 상세 -->
+	<select id="free_view" parameterType="int" resultType="free">
+		select * from free where idx=#{idx}
+	</select>
+
+	<!-- Q&A 상세리스트 -->
+	<select id="free_view_list" parameterType="int" resultType="free">
+		select * from free where ref=#{ref} order by step asc
+	</select>
+	
+	<!-- Q&A 새글쓰기 -->
+	<insert id="free_insert" parameterType="free">
+		insert into free values(
+			seq_free_idx.nextVal,
+			#{subject},
+			#{content},
+			#{pwd},
+			#{ip},
+			sysdate,
+			seq_free_idx.currVal,
+			0,
+			0,
+			0,
+			0
+		)
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="free_modify" parameterType="free">
+		update free set
+			subject = #{subject},
+			content = #{content},
+			pwd = #{pwd},
+			ip = #{ip},
+			regdate = sysdate
+		where idx = #{idx}
+	</update>
+
+	<!-- Q&A 댓글쓰기 -->
+	<insert id="free_reply" parameterType="free">
+		insert into free values(
+			seq_free_idx.nextVal,
+			#{subject},
+			#{content},
+			#{pwd},
+			#{ip},
+			sysdate,
+			#{ref},
+			0,
+			#{step},
+			#{depth},
+			0
+		)
+	</insert>
+
+	<!-- 댓글 -->
+	<update id="free_reply_step_update" parameterType="free">
+		update free set
+			step = step + 1
+		where ref = #{ref} and step > #{step}
+	</update>
+
+	<update id="free_del" parameterType="free">
+		update free set
+			del_info = 1
+		where idx = #{idx}
+	</update>
+	
+	<!-- 전체 게시물 카운트 -->
+	<select id="free_count" resultType="int">
+		select COUNT(*) from free
+	</select>
+
+	<!-- 댓글 -->
+	<update id="free_update_readhit" parameterType="int">
+		update free set readhit = readhit + 1
+		where idx = #{idx}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

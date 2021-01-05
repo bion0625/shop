@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="l">
+
+	<!-- Q&A 전체 리스트 -->
+	<select id="loss_list" resultType="loss">
+		select * from ( select rank()
+		over( order by ref desc, step asc ) no, b.*
+		from( select * from loss ) b
+		)
+		where no between 1 and 10
+	</select>
+
+	<!-- Q&A 페이지별 리스트 -->
+	<select id="loss_list_condition" resultType="loss" parameterType="java.util.Map">
+		select * from ( select rank()
+		over( order by ref desc, step asc ) no, b.*
+		from( select * from loss ) b
+		)
+		where no between #{start} and #{end}
+	</select>
+	
+	<!-- Q&A 상세 -->
+	<select id="loss_view" parameterType="int" resultType="loss">
+		select * from loss where idx=#{idx}
+	</select>
+
+	<!-- Q&A 상세리스트 -->
+	<select id="loss_view_list" parameterType="int" resultType="loss">
+		select * from loss where ref=#{ref} order by step asc
+	</select>
+	
+	<!-- Q&A 새글쓰기 -->
+	<insert id="loss_insert" parameterType="loss">
+		insert into loss values(
+			seq_loss_idx.nextVal,
+			#{subject},
+			#{content},
+			#{pwd},
+			#{ip},
+			sysdate,
+			seq_loss_idx.currVal,
+			0,
+			0,
+			0,
+			0
+		)
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="loss_modify" parameterType="loss">
+		update loss set
+			subject = #{subject},
+			content = #{content},
+			pwd = #{pwd},
+			ip = #{ip},
+			regdate = sysdate
+		where idx = #{idx}
+	</update>
+
+	<!-- Q&A 댓글쓰기 -->
+	<insert id="loss_reply" parameterType="loss">
+		insert into loss values(
+			seq_loss_idx.nextVal,
+			#{subject},
+			#{content},
+			#{pwd},
+			#{ip},
+			sysdate,
+			#{ref},
+			0,
+			#{step},
+			#{depth},
+			0
+		)
+	</insert>
+
+	<!-- 댓글 -->
+	<update id="loss_reply_step_update" parameterType="loss">
+		update loss set
+			step = step + 1
+		where ref = #{ref} and step > #{step}
+	</update>
+
+	<update id="loss_del" parameterType="loss">
+		update loss set
+			del_info = 1
+		where idx = #{idx}
+	</update>
+	
+	<!-- 전체 게시물 카운트 -->
+	<select id="loss_count" resultType="int">
+		select COUNT(*) from loss
+	</select>
+
+	<!-- 댓글 -->
+	<update id="loss_update_readhit" parameterType="int">
+		update loss set readhit = readhit + 1
+		where idx = #{idx}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="b">
+	<select id="st_record_list" resultType="vo.StRecordVO"> 
+		select * from st_record order by idx DESC 
+	</select>
+	<select id="bn_record_list" resultType="vo.BnRecordVO"> 
+		select * from bn_record order by idx DESC
+	</select>
+	
+	<insert id = "st_record_insert" parameterType="vo.StRecordVO">
+		insert into st_record values(
+							seq_st_record_idx.nextVal,
+							#{id},
+							#{busStop_name}
+		)
+	</insert>
+	<insert id = "bn_record_insert" parameterType="vo.BnRecordVO">
+		insert into bn_record values(
+							seq_bn_record_idx.nextVal,
+							#{id},
+							#{bus_num}
+		)
+	</insert>
+	<delete id="st_record_del" parameterType="int">
+		delete st_record from where idx=#{idx}
+	</delete>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

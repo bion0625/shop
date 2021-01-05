@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- VisitDAO visit_daoBean = new VisitDAO();
+	     visit_daoBean.setSqlSession( sqlSessionBean ); -->
+	
+	<bean id="bus_daoBean" class="dao.BusDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>	
+
+	<bean id="qna_daoBean" class="dao.QnaDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="loss_daoBean" class="dao.LossDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+
+	<bean id="notice_daoBean" class="dao.NoticeDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="free_daoBean" class="dao.FreeDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+

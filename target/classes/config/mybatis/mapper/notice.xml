@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="n">
+
+	<!-- Q&A 전체 리스트 -->
+	<select id="notice_list" resultType="notice">
+		select * from ( select rank()
+		over( order by ref desc, step asc ) no, b.*
+		from( select * from notice ) b
+		)
+		where no between 1 and 10
+	</select>
+
+	<!-- Q&A 페이지별 리스트 -->
+	<select id="notice_list_condition" resultType="notice" parameterType="java.util.Map">
+		select * from ( select rank()
+		over( order by ref desc, step asc ) no, b.*
+		from( select * from notice ) b
+		)
+		where no between #{start} and #{end}
+	</select>
+	
+	<!-- Q&A 상세 -->
+	<select id="notice_view" parameterType="int" resultType="notice">
+		select * from notice where idx=#{idx}
+	</select>
+
+	<!-- Q&A 상세리스트 -->
+	<select id="notice_view_list" parameterType="int" resultType="notice">
+		select * from notice where ref=#{ref} order by step asc
+	</select>
+	
+	<!-- Q&A 새글쓰기 -->
+	<insert id="notice_insert" parameterType="notice">
+		insert into notice values(
+			seq_notice_idx.nextVal,
+			#{subject},
+			#{content},
+			#{pwd},
+			#{ip},
+			sysdate,
+			seq_notice_idx.currVal,
+			0,
+			0,
+			0,
+			0
+		)
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="notice_modify" parameterType="notice">
+		update notice set
+			subject = #{subject},
+			content = #{content},
+			pwd = #{pwd},
+			ip = #{ip},
+			regdate = sysdate
+		where idx = #{idx}
+	</update>
+
+	<!-- Q&A 댓글쓰기 -->
+	<insert id="notice_reply" parameterType="notice">
+		insert into notice values(
+			seq_notice_idx.nextVal,
+			#{subject},
+			#{content},
+			#{pwd},
+			#{ip},
+			sysdate,
+			#{ref},
+			0,
+			#{step},
+			#{depth},
+			0
+		)
+	</insert>
+
+	<!-- 댓글 -->
+	<update id="notice_reply_step_update" parameterType="notice">
+		update notice set
+			step = step + 1
+		where ref = #{ref} and step > #{step}
+	</update>
+
+	<update id="notice_del" parameterType="notice">
+		update notice set
+			del_info = 1
+		where idx = #{idx}
+	</update>
+	
+	<!-- 전체 게시물 카운트 -->
+	<select id="notice_count" resultType="int">
+		select COUNT(*) from notice
+	</select>
+
+	<!-- 댓글 -->
+	<update id="notice_update_readhit" parameterType="int">
+		update notice set readhit = readhit + 1
+		where idx = #{idx}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

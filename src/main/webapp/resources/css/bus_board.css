@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+a{text-decoration: none; color: black;}
+li{list-style: none;}
+*{margin: 0; padding: 0;}
+
+	
+#main_box{
+	width: 1500px; 
+	margin: 0 auto; 
+}
+#head {
+	position: relative;
+	height: auto;
+	min-height: 80px;
+}
+#head h1{
+	position: absolute;
+	left : 5px; bottom: 0px;
+}
+
+/* 로그인 , 마이페이지 */
+#my_bar{
+	position: absolute;
+	right: 0px; bottom: 0px;
+	margin-bottom: 1px;
+}
+#my_bar li{
+	float: right;
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	border-top: 1px solid gray;
+	font-size: 15px;
+}
+#my_bar li:last-child{
+	border-left: 1px solid gray;
+}
+#my_bar li a{
+	display: block; padding: 10px 15px; color: #282828; background: gray; font-weight: bold;
+}
+#my_bar li a:hover{
+	background: #aaf; color:#fff; font-weight: bold;
+	}
+
+/* 커뮤니티바 */
+#community_bar{
+	width: 1500px; height:60px;
+	margin: 0 auto; 
+	background: #282828;
+}
+
+#community_bar > li{
+	float:left;
+	position: relative;
+	margin: 5px 10px;
+	margin-left: 10%;
+}
+
+#community_bar > li a{
+	text-align: center;
+	display: block;
+	padding: 15px 20px;
+	color:#e7e5e5;
+	width: 120px;
+}
+#community_bar > li a:hover{
+	background: #FFFFF0;
+	color:#444;
+}
+
+#community_bar ul{
+	position: absolute;
+	left:0; top:45;
+	display: none;
+	border-top: 1px solid black;
+}
+#community_bar li:hover ul{background: #FFFFF0; display:block; z-index: 2;}
+#community_bar li:hover > a{background: #FFFFF0; color: #666;}
+#community_bar ul a{color:#333; background: #fff;}
+#community_bar ul li:hover a{background: #ccc;
+								color:#666;}
+
+/* 게시판 */
+#list{position: relative;
+					width: 1000px;
+					height: 1000px;}
+					
+#list div{position: absolute;
+						top: 10px;
+						left: 0;}
+			
+#list div ul{width: 200px;}
+#list div ul li:first-child{display: block; padding: 10px 15px; color: gray; background: #282828; font-weight: bold;}	
+#list div ul li a{display: block; padding: 10px 15px; color: #282828; background: gray; font-weight: bold;}		
+#list div ul li a:hover{background: #aaa; color:#fff; font-weight: bold;}
+			
+#list table{position: absolute;
+			top: 10px;
+			left: 300px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

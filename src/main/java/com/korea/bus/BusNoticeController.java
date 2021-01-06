@@ -27,7 +27,7 @@ public class BusNoticeController {
 	HttpSession session;
 	
 	NoticeDAO notice_dao;
-	public void setnotice_dao(NoticeDAO notice_dao) {
+	public void setNotice_dao(NoticeDAO notice_dao) {
 		this.notice_dao = notice_dao;
 	}
 	

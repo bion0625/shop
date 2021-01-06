@@ -27,7 +27,7 @@ public class BusQnaController {
 	HttpSession session;
 	
 	QnaDAO qna_dao;
-	public void setqna_dao(QnaDAO qna_dao) {
+	public void setQna_dao(QnaDAO qna_dao) {
 		this.qna_dao = qna_dao;
 	}
 	

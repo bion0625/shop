@@ -27,7 +27,7 @@ public class BusFreeController {
 	HttpSession session;
 	
 	FreeDAO free_dao;
-	public void setfree_dao(FreeDAO free_dao) {
+	public void setFree_dao(FreeDAO free_dao) {
 		this.free_dao = free_dao;
 	}
 	

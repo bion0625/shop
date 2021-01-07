@@ -1,0 +1,81 @@
+create sequence seq_loss_idx;
+
+create table loss(
+	idx NUMBER(3) primary key, --게시글 일련번호
+	subject VARCHAR2(200) not null, --제목
+	content CLOB, --내용
+	pwd VARCHAR2(50) not null, --비번
+	ip VARCHAR2(50), --ip
+	regdate DATE, --작성일
+	ref NUMBER(3), --기준글 번호
+	readhit NUMBER(5) default 0, --조회수
+	step NUMBER(3), --댓글순서(수직)
+	depth NUMBER(3), --댓글의 깊이(수평)
+	del_info NUMBER(3) --삭제유무
+);
+
+create sequence seq_qna_idx;
+
+create table qna(
+	idx NUMBER(3) primary key, --게시글 일련번호
+	subject VARCHAR2(200) not null, --제목
+	content CLOB, --내용
+	pwd VARCHAR2(50) not null, --비번
+	ip VARCHAR2(50), --ip
+	regdate DATE, --작성일
+	ref NUMBER(3), --기준글 번호
+	readhit NUMBER(5) default 0, --조회수
+	step NUMBER(3), --댓글순서(수직)
+	depth NUMBER(3), --댓글의 깊이(수평)
+	del_info NUMBER(3) --삭제유무
+);
+
+create sequence seq_free_idx;
+
+create table free(
+	idx NUMBER(3) primary key, --게시글 일련번호
+	subject VARCHAR2(200) not null, --제목
+	content CLOB, --내용
+	pwd VARCHAR2(50) not null, --비번
+	ip VARCHAR2(50), --ip
+	regdate DATE, --작성일
+	ref NUMBER(3), --기준글 번호
+	readhit NUMBER(5) default 0, --조회수
+	step NUMBER(3), --댓글순서(수직)
+	depth NUMBER(3), --댓글의 깊이(수평)
+	del_info NUMBER(3) --삭제유무
+);
+
+create sequence seq_notice_idx;
+
+create table notice(
+	idx NUMBER(3) primary key, --게시글 일련번호
+	subject VARCHAR2(200) not null, --제목
+	content CLOB, --내용
+	pwd VARCHAR2(50) not null, --비번
+	ip VARCHAR2(50), --ip
+	regdate DATE, --작성일
+	ref NUMBER(3), --기준글 번호
+	readhit NUMBER(5) default 0, --조회수
+	step NUMBER(3), --댓글순서(수직)
+	depth NUMBER(3), --댓글의 깊이(수평)
+	del_info NUMBER(3) --삭제유무
+);
+
+create sequence seq_st_record_idx;
+
+
+create table st_record(
+	idx NUMBER(3) primary key, --일련번호
+	id VARCHAR2(50)not null, --사용자 아이디
+	busStop_name VARCHAR2(100) not null-- 정류소이름
+);
+
+create sequence seq_bn_record_idx;
+
+
+create table bn_record(
+	idx NUMBER(3) primary key, --일련번호
+	id VARCHAR2(50)not null, --사용자 아이디
+	bus_num VARCHAR2(50) not null -- 버스번호
+);
